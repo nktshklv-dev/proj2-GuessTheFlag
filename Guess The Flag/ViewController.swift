@@ -12,10 +12,12 @@ class ViewController: UIViewController {
     @IBOutlet var buttonOne: UIButton!
     @IBOutlet var buttonTwo: UIButton!
     @IBOutlet var buttonThree: UIButton!
+    @IBOutlet var questionCounterLabel: UILabel!
     
     var countries: [String] = []
     var score = 0
     var correctAnswer = 0
+    var round = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,15 +33,51 @@ class ViewController: UIViewController {
         
     }
     
-    func askQuestion(){
+    func askQuestion(_ action: UIAlertAction! = nil){
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
         buttonOne.setImage(UIImage(named: countries[0]), for: .normal)
-        buttonTwo.imageView?.image = UIImage(named: countries[1])
-        buttonThree.imageView?.image = UIImage(named: countries[2])
+        buttonTwo.setImage(UIImage(named: countries[1]), for: .normal)
+        buttonThree.setImage(UIImage(named: countries[2]), for: .normal)
         
-        title = countries[correctAnswer].uppercased()
+        title = countries[correctAnswer].uppercased() + " | SCORE: \(score)"
+        questionCounterLabel.text = "QUESTION \(round)/10"
     }
+    func resetGame(_ action: UIAlertAction! = nil){
+        score = 0
+        round = 0
+        askQuestion()
+    }
+    
+    
+    @IBAction func buttonTapped(_ sender: UIButton) {
+        let title = "Good Job!"
+        
+        if sender.tag == correctAnswer{
+            score += 10
+            round += 1
+            
+        }
+        else{
+            score -= 15
+            round += 1
+            let ac1 = UIAlertController(title: "You're wrong!", message: "You've chosen the \(countries[sender.tag]) flag!", preferredStyle: .alert)
+            ac1.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
+            present(ac1, animated: true, completion: nil)
+        }
+        askQuestion()
+        
+        if round == 10{
+            let ac = UIAlertController(title: title, message: "Your score is: \(score)", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: resetGame))
+            
+            present(ac, animated: true, completion: nil)
+        }
+       
+        
+    }
+    
+    
 
 
 }
