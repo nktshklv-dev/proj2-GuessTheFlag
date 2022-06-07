@@ -30,6 +30,7 @@ class ViewController: UIViewController {
         buttonThree.layer.borderColor = UIColor.lightGray.cgColor
         buttonTwo.layer.borderColor = UIColor.lightGray.cgColor
         buttonOne.layer.borderColor = UIColor.lightGray.cgColor
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareMyScore))
         
     }
     
@@ -75,6 +76,12 @@ class ViewController: UIViewController {
         }
        
         
+    }
+    
+    @objc func shareMyScore(){
+        let vc = UIActivityViewController(activityItems: ["Yo bro! Look at my score! I've got \(score) points in the Guess The Flag game!"], applicationActivities: [])
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true, completion: nil)
     }
     
     
