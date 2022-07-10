@@ -53,7 +53,10 @@ class ViewController: UIViewController {
     
     @IBAction func buttonTapped(_ sender: UIButton) {
         let title = "Good Job!"
-        
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: []) {
+            sender.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        }
+
         if sender.tag == correctAnswer{
             score += 10
             round += 1
@@ -65,6 +68,9 @@ class ViewController: UIViewController {
             let ac1 = UIAlertController(title: "You're wrong!", message: "You've chosen the \(countries[sender.tag]) flag!", preferredStyle: .alert)
             ac1.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
             present(ac1, animated: true, completion: nil)
+        }
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: []) {
+            sender.transform = CGAffineTransform.identity
         }
         askQuestion()
         
