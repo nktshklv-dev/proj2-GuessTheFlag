@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import UserNotifications
 class ViewController: UIViewController {
     
     @IBOutlet var buttonOne: UIButton!
@@ -21,6 +21,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+      
+        
         countries.append(contentsOf: ["estonia", "france", "germany", "ireland", "italy", "monaco", "nigeria", "poland", "russia", "spain", "uk", "us"])
         askQuestion()
         buttonOne.layer.borderWidth = 2
